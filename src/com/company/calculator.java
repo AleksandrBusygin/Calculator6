@@ -44,7 +44,14 @@ public class calculator {
         while (true) {
             System.out.println("Введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программы");
             String s = reader.readLine();
-            int a = Integer.parseInt(s);
+            int a = -2;
+            try{
+                a = Integer.parseInt(s);
+            } catch (Exception e){
+                System.out.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программ");
+                continue;
+            }
+
             if (!(a==0 || a==1 ||a==2)){
                 System.out.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программы ");
                 continue;
