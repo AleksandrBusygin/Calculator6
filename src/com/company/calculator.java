@@ -44,57 +44,92 @@ public class calculator {
         while (true) {
             System.out.println("Введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программы");
             String s = reader.readLine();
-            int a = -2;
+            int a = 0;
             try{
                 a = Integer.parseInt(s);
             } catch (Exception e){
-                System.out.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программ");
+                System.err.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программ");
                 continue;
             }
-
             if (!(a==0 || a==1 ||a==2)){
-                System.out.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программы ");
-                continue;
+                System.err.println("Неверное значение, введите номер задания: 1 - калькулятор, 2 – массив, 0 – выход из программы ");
             }
-            if (a == 0) {
+            else if (a == 0) {
                 break;
             }
-            if (a == 1) {
-                System.out.println("Введите первое число:");
-                double first = Double.parseDouble(reader.readLine());
-                System.out.println("Введите второе число:");
-                double second = Double.parseDouble(reader.readLine());
-                System.out.println("Введите необходимую операцию (или +, или -, или *, или /):");
-                String op = reader.readLine();
-
-                if (op.equals("+")) {
-                    System.out.printf("Cумма равна %.4f", plus(first, second) + '\n');
-                    System.out.println("");
-                } else if (op.equals("-")) {
-                    System.out.printf("Разность равна %.4f", minus(first, second));
-                    System.out.println("");
-                } else if (op.equals("*")) {
-                    System.out.printf("Результат умножения равен %.4f", multiplication(first, second));
-                    System.out.println("");
-                } else if (op.equals("/")) {
-                    System.out.printf("Результат деления равен %.4f", division(first, second));
-                    System.out.println("");
-                } else {
-                    System.out.println("Неверное значение для определения операции");
+            else if (a == 1) {
+                double first = 0;
+                double second = 0;
+                boolean isNumber = true;
+                while (isNumber) {
+                    System.out.println("Введите первое число:");
+                    try {
+                        first = Double.parseDouble(reader.readLine());
+                        isNumber = false;
+                    } catch (Exception e) {
+                        System.err.println("Необходимо вводить числа");
+                    }
                 }
-            } else if (a == 2) {
-                System.out.println("Введите количество элементов массива:");
-                int countOfelements = Integer.parseInt(reader.readLine());
+                isNumber = true;
+                while (isNumber) {
+                    System.out.println("Введите второе число:");
+                    try {
+                        second = Double.parseDouble(reader.readLine());
+                        isNumber = false;
+                    } catch (Exception e) {
+                        System.err.println("Необходмо вводить числа");
+                    }
+                }
+                System.out.println("Введите необходимую операцию (или +, или -, или *, или /):");
+                boolean makeOp = true;
+                while (makeOp) {
+                    String op = reader.readLine();
+                    switch (op) {
+                        case "+":
+                            System.out.printf("Cумма равна %.4f", plus(first, second));
+                            System.out.println();
+                            makeOp = false;
+                            break;
+                        case "-":
+                            System.out.printf("Разность равна %.4f", minus(first, second));
+                            System.out.println();
+                            makeOp = false;
+                            break;
+                        case "*":
+                            System.out.printf("Результат умножения равен %.4f", multiplication(first, second));
+                            System.out.println();
+                            makeOp = false;
+                            break;
+                        case "/":
+                            System.out.printf("Результат деления равен %.4f", division(first, second));
+                            System.out.println();
+                            makeOp = false;
+                            break;
+                        default:
+                            System.err.println("Неверное значение для определения операции. Введите или +, или -, или *, или /");
+                            break;
+                    }
+                }
+            }
+            else if (a == 2) {
+                int countOfelements = 0;
+                boolean isNumber = true;
+                while (isNumber) {
+                    System.out.println("Введите количество элементов массива:");
+                    try {
+                        countOfelements = Integer.parseInt(reader.readLine());
+                        isNumber = false;
+                    } catch (Exception e) {
+                        System.err.println("Неверное значение, введите количество элементов (только числа!)");
+                    }
+                }
                 System.out.println("Заполните массив словами:");
                 String[] array = new String[countOfelements];
                 for (int i = 0; i < array.length; i++) {
                     array[i] = reader.readLine();
                 }
                 System.out.println("Самое длинное слово: " + maxWord(array));
-            } else {
-                System.out.println("Введен неверный номер задания");
             }
-
         }
     }
 }
