@@ -101,8 +101,12 @@ public class calculator {
                             makeOp = false;
                             break;
                         case "/":
+                            if (second == 0){
+                                System.out.println("На ноль делить нельзя!");
+                            }
+                            else {
                             System.out.printf("Результат деления равен %.4f", division(first, second));
-                            System.out.println();
+                            System.out.println();}
                             makeOp = false;
                             break;
                         default:
